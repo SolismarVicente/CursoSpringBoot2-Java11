@@ -1,4 +1,4 @@
-package com.educandoweb.CursoJPA;
+package com.educandoweb.cursojpa;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
