@@ -23,7 +23,7 @@ public class User implements Serializable {
 	public User() {
 		
 	}
-
+	
 	public User(Long codigo, String nomeUser, String emailUser, String telefoneUser, String senhaUser) {
 		super();
 		this.codigo = codigo;

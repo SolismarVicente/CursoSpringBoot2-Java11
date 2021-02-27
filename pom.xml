@@ -34,17 +34,29 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> 61477a45864d8134933dcb825450b9d558cd24e8
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 61477a45864d8134933dcb825450b9d558cd24e8
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 61477a45864d8134933dcb825450b9d558cd24e8
 	</dependencies>
 
 	<build>
