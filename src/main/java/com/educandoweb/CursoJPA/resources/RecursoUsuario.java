@@ -9,29 +9,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.educandoweb.cursojpa.entities.User;
-import com.educandoweb.cursojpa.services.UserService;
+import com.educandoweb.cursojpa.entities.Usuario;
+import com.educandoweb.cursojpa.services.ServicoUsuario;
 
 //Recurso Web
 @RestController
 //Nome para o meu Recurso
-@RequestMapping(value = "/users")
+@RequestMapping(value = "/usuarios")
 //Resource: recurso
-public class UserResource {
+public class RecursoUsuario {
 	
 	@Autowired //faz com que a classe seja ejetada automaticamente
-	private UserService userService;
+	private ServicoUsuario servicoUsuario;
 	
 	@GetMapping
-	public ResponseEntity<List<User>> buscarTodos() {
-		List<User> lista = userService.listarTodos();
+	public ResponseEntity<List<Usuario>> buscarTodos() {
+		List<Usuario> lista = servicoUsuario.listarTodos();
 		
 		return ResponseEntity.ok().body(lista);
 	}
 	
 	@GetMapping(value = "/{codigo}")
-	public ResponseEntity<User> buscarPorCodigo(@PathVariable Long codigo) {
-		User objetoUser = userService.buscarPorCodigo(codigo);
-		return ResponseEntity.ok().body(objetoUser); 
+	public ResponseEntity<Usuario> buscarPorCodigo(@PathVariable Long codigo) {
+		Usuario objetoUsuario = servicoUsuario.buscarPorCodigo(codigo);
+		return ResponseEntity.ok().body(objetoUsuario); 
 	}
 }

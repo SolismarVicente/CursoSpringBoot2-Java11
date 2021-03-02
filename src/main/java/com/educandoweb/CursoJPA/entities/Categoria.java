@@ -1,32 +1,38 @@
 package com.educandoweb.cursojpa.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
-@Table(name = "tb_category")
-public class Category implements Serializable {
+@Table(name = "tb_categoria")
+public class Categoria implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	private String nomeCategory;
+	private String nomeCategoria;
 	
-	public Category() {
+	@Transient
+	private Set<Produto> produtos = new HashSet<>();
+	
+	public Categoria() {
 		
 	}
 
-	public Category(Long codigo, String nomeCategory) {
+	public Categoria(Long codigo, String nomeCategoria) {
 		super();
 		this.codigo = codigo;
-		this.nomeCategory = nomeCategory;
+		this.nomeCategoria = nomeCategoria;
 	}
 
 	public Long getCodigo() {
@@ -36,13 +42,17 @@ public class Category implements Serializable {
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
-
-	public String getNomeCategory() {
-		return nomeCategory;
+	
+	public String getNomeCategoria() {
+		return nomeCategoria;
 	}
 
-	public void setNomeCategory(String nomeCategory) {
-		this.nomeCategory = nomeCategory;
+	public void setNomeCategoria(String nomeCategoria) {
+		this.nomeCategoria = nomeCategoria;
+	}
+
+	public Set<Produto> getProdutos() {
+		return produtos;
 	}
 
 	@Override
@@ -61,7 +71,7 @@ public class Category implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		Categoria other = (Categoria) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;

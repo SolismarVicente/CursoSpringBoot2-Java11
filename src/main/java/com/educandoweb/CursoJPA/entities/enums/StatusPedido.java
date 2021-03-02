@@ -1,6 +1,6 @@
 package com.educandoweb.cursojpa.entities.enums;
 
-public enum OrderStatus {
+public enum StatusPedido {
 	
 	WAITING_PAYMENT(1),
 	PAID(2),
@@ -10,7 +10,7 @@ public enum OrderStatus {
 	
 	private int code;
 	
-	private OrderStatus(int code) {
+	private StatusPedido(int code) {
 		this.code = code;
 	}
 	
@@ -18,8 +18,8 @@ public enum OrderStatus {
 		return code;
 	}
 	
-	public static OrderStatus transformaCodeString(int code) {
-		for (OrderStatus valor : OrderStatus.values()) {
+	public static StatusPedido transformaCodigoString(int code) {
+		for (StatusPedido valor : StatusPedido.values()) {
 			if (valor.getCode() == code) {
 				return valor;
 			}

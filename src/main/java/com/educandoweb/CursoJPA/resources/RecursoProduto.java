@@ -9,29 +9,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.educandoweb.cursojpa.entities.Order;
-import com.educandoweb.cursojpa.services.OrderService;
+import com.educandoweb.cursojpa.entities.Produto;
+import com.educandoweb.cursojpa.services.ServicoProduto;
 
 //Recurso Web
 @RestController
 //Nome para o meu Recurso
-@RequestMapping(value = "/orders")
+@RequestMapping(value = "/produtos")
 //Resource: recurso
-public class OrderResource {
+public class RecursoProduto {
 	
 	@Autowired //faz com que a classe seja ejetada automaticamente
-	private OrderService orderService;
+	private ServicoProduto servicoProduto;
 	
 	@GetMapping
-	public ResponseEntity<List<Order>> buscarTodos() {
-		List<Order> lista = orderService.listarTodos();
+	public ResponseEntity<List<Produto>> buscarTodos() {
+		List<Produto> lista = servicoProduto.listarTodos();
 		
 		return ResponseEntity.ok().body(lista);
 	}
 	
 	@GetMapping(value = "/{codigo}")
-	public ResponseEntity<Order> buscarPorCodigo(@PathVariable Long codigo) {
-		Order objetoOrder = orderService.buscarPorCodigo(codigo);
-		return ResponseEntity.ok().body(objetoOrder); 
+	public ResponseEntity<Produto> buscarPorCodigo(@PathVariable Long codigo) {
+		Produto objetoProduto = servicoProduto.buscarPorCodigo(codigo);
+		return ResponseEntity.ok().body(objetoProduto); 
 	}
 }

@@ -9,29 +9,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.educandoweb.cursojpa.entities.Category;
-import com.educandoweb.cursojpa.services.CategoryService;
+import com.educandoweb.cursojpa.entities.Categoria;
+import com.educandoweb.cursojpa.services.ServicoCategoria;
 
 //Recurso Web
 @RestController
 //Nome para o meu Recurso
-@RequestMapping(value = "/categories")
+@RequestMapping(value = "/categorias")
 //Resource: recurso
-public class CategoryResource {
+public class RecursoCategoria {
 	
 	@Autowired //faz com que a classe seja ejetada automaticamente
-	private CategoryService categoryService;
+	private ServicoCategoria servicoCategoria;
 	
 	@GetMapping
-	public ResponseEntity<List<Category>> buscarTodos() {
-		List<Category> lista = categoryService.listarTodos();
+	public ResponseEntity<List<Categoria>> buscarTodos() {
+		List<Categoria> lista = servicoCategoria.listarTodos();
 		
 		return ResponseEntity.ok().body(lista);
 	}
 	
 	@GetMapping(value = "/{codigo}")
-	public ResponseEntity<Category> buscarPorCodigo(@PathVariable Long codigo) {
-		Category objetoCategory = categoryService.buscarPorCodigo(codigo);
-		return ResponseEntity.ok().body(objetoCategory); 
+	public ResponseEntity<Categoria> buscarPorCodigo(@PathVariable Long codigo) {
+		Categoria objetoCategoria = servicoCategoria.buscarPorCodigo(codigo);
+		return ResponseEntity.ok().body(objetoCategoria); 
 	}
 }

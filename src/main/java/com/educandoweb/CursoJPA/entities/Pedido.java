@@ -11,13 +11,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.educandoweb.cursojpa.entities.enums.OrderStatus;
+import com.educandoweb.cursojpa.entities.enums.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-//Order: pedido
+//pedido: no video está Order
 @Entity
-@Table(name = "tb_order")
-public class Order implements Serializable {
+@Table(name = "tb_pedido")
+public class Pedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -28,24 +28,24 @@ public class Order implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant momento;
 	
-	private Integer orderStatus;
+	private Integer statusPedido;
 	
-	//Implementação do relacionamento entre Order(pedido) e
-	//User (usuario)
+	//Implementação do relacionamento entre pedido(order) e
+	//usuario: (user)
 	@ManyToOne
-	@JoinColumn(name = "client_codigo")
-	private User client;
+	@JoinColumn(name = "tb_usuario_codigo")
+	private Usuario cliente;
 	
-	public Order() {
+	public Pedido() {
 		
 	}
 
-	public Order(Long codigo, Instant momento, OrderStatus orderStatus, User client) {
+	public Pedido(Long codigo, Instant momento, StatusPedido orderStatus, Usuario cliente) {
 		super();
 		this.codigo = codigo;
 		this.momento = momento;
 		setOrderStatus(orderStatus);
-		this.client = client;
+		this.cliente = cliente;
 	}
 
 	public Long getCodigo() {
@@ -64,22 +64,22 @@ public class Order implements Serializable {
 		this.momento = momento;
 	}
 	
-	public OrderStatus getOrderStatus() {
-		return OrderStatus.transformaCodeString(orderStatus);
+	public StatusPedido getStatusPedido() {
+		return StatusPedido.transformaCodigoString(statusPedido);
 	}
 
-	public void setOrderStatus(OrderStatus orderStatus) {
-		if (orderStatus != null) {
-			this.orderStatus = orderStatus.getCode();
+	public void setOrderStatus(StatusPedido statusPedido) {
+		if (statusPedido != null) {
+			this.statusPedido = statusPedido.getCode();
 		}
 	}
 
-	public User getClient() {
-		return client;
+	public Usuario getCliente() {
+		return cliente;
 	}
 
-	public void setClient(User client) {
-		this.client = client;
+	public void setCliente(Usuario cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class Order implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Order other = (Order) obj;
+		Pedido other = (Pedido) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
