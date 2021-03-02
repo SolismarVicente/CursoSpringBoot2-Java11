@@ -26,7 +26,7 @@ public class User implements Serializable {
 	private String emailUser;
 	private String telefoneUser;
 	private String senhaUser;
-	
+
 	//orders: pedidos
 	//mapear o relacionamento entre Order e User
 	@JsonIgnore
@@ -36,7 +36,7 @@ public class User implements Serializable {
 	public User() {
 		
 	}
-
+	
 	public User(Long codigo, String nomeUser, String emailUser, String telefoneUser, String senhaUser) {
 		super();
 		this.codigo = codigo;
@@ -90,7 +90,6 @@ public class User implements Serializable {
 		return orders;
 	}
 
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -116,7 +115,5 @@ public class User implements Serializable {
 		return true;
 	}
 
-	
-	
 	
 }

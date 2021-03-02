@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -28,6 +28,11 @@ public class Order implements Serializable {
 	private Instant momento;
 	
 	//implementar o relacionamento entre Order e User
+
+	private Instant instante;
+	
+	//Implementação do relacionamento entre Order(pedido) e
+	//User (usuario)
 	@ManyToOne
 	@JoinColumn(name = "client_codigo")
 	private User client;
@@ -36,10 +41,10 @@ public class Order implements Serializable {
 		
 	}
 
-	public Order(Long codigo, Instant momento, User client) {
+	public Order(Long codigo, Instant instante, User client) {
 		super();
 		this.codigo = codigo;
-		this.momento = momento;
+		this.instante = instante;
 		this.client = client;
 	}
 
@@ -57,6 +62,14 @@ public class Order implements Serializable {
 
 	public void setMomento(Instant momento) {
 		this.momento = momento;
+	}
+	
+	public Instant getInstante() {
+		return instante;
+	}
+
+	public void setInstante(Instant instante) {
+		this.instante = instante;
 	}
 
 	public User getClient() {
