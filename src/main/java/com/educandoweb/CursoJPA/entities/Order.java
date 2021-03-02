@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.educandoweb.cursojpa.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 //Order: pedido
@@ -27,9 +28,7 @@ public class Order implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant momento;
 	
-	//implementar o relacionamento entre Order e User
-
-	private Instant instante;
+	private Integer orderStatus;
 	
 	//Implementação do relacionamento entre Order(pedido) e
 	//User (usuario)
@@ -41,10 +40,11 @@ public class Order implements Serializable {
 		
 	}
 
-	public Order(Long codigo, Instant instante, User client) {
+	public Order(Long codigo, Instant momento, OrderStatus orderStatus, User client) {
 		super();
 		this.codigo = codigo;
-		this.instante = instante;
+		this.momento = momento;
+		setOrderStatus(orderStatus);
 		this.client = client;
 	}
 
@@ -64,12 +64,14 @@ public class Order implements Serializable {
 		this.momento = momento;
 	}
 	
-	public Instant getInstante() {
-		return instante;
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.transformaCodeString(orderStatus);
 	}
 
-	public void setInstante(Instant instante) {
-		this.instante = instante;
+	public void setOrderStatus(OrderStatus orderStatus) {
+		if (orderStatus != null) {
+			this.orderStatus = orderStatus.getCode();
+		}
 	}
 
 	public User getClient() {
