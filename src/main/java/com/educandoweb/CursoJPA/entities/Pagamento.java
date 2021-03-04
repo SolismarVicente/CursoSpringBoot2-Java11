@@ -11,6 +11,8 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_pagamento")
 //Pagamento: no vídeo está Payment
@@ -25,6 +27,7 @@ public class Pagamento implements Serializable {
 	
 	//A classe Pedido será independente, enquanto que
 	//a classe Pagamento será dependente de Pedido
+	@JsonIgnore
 	@OneToOne
 	@MapsId
 	private Pedido pedido;

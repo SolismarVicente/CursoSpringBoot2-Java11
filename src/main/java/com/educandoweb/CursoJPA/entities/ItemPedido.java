@@ -46,15 +46,13 @@ public class ItemPedido implements Serializable {
 	}
 	
 	public Produto getProduto() {
-		System.out.println("getProduto");
 		return chavePrimaria.getProduto();
 	}
 	
 	public void setProduto(Produto produto) {
-		System.out.println("setProduto");
 		chavePrimaria.setProduto(produto);
 	}
-
+	
 	public Integer getQuantidade() {
 		return quantidade;
 	}
@@ -70,7 +68,12 @@ public class ItemPedido implements Serializable {
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
-
+	
+	//calcular subTotal do ItemPedido
+	public Double getSubTotal() {
+		return quantidade * preco;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
