@@ -25,4 +25,9 @@ public class ServicoUsuario {
 		return objetoUsuario.get();
 	}
 	
+	//realizar insercao no Banco de Dados - tabela tb_usuario
+	public Usuario inserir(Usuario objetoUsuario) {
+		return repositorioUsuario.save(objetoUsuario);
+	}
+	
 }
