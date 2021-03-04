@@ -15,14 +15,22 @@ public class ChavePrimariaItemPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
-	@JoinColumn(name = "tb_produto_codigo")
-	private Produto produto;
-	
-	@ManyToOne
 	@JoinColumn(name = "tb_pedido_codigo")
 	private Pedido pedido;
 	
+	@ManyToOne
+	@JoinColumn(name = "tb_produto_codigo")
+	private Produto produto;
+	
 	//Esta classe não vai ter os construtores
+	
+	public Pedido getPedido() {
+		return pedido;
+	}
+	
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
 	
 	public Produto getProduto() {
 		System.out.println("getProduto");
@@ -31,14 +39,6 @@ public class ChavePrimariaItemPedido implements Serializable {
 	
 	public void setProduto(Produto produto) {
 		this.produto = produto;
-	}
-	
-	public Pedido getPedido() {
-		return pedido;
-	}
-	
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.educandoweb.cursojpa.entities.pk.ChavePrimariaItemPedido;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_item_pedido")
@@ -16,7 +17,7 @@ public class ItemPedido implements Serializable {
 
 	//codigo composto
 	@EmbeddedId
-	private ChavePrimariaItemPedido chavePrimaria;
+	private ChavePrimariaItemPedido chavePrimaria = new ChavePrimariaItemPedido();
 	
 	private Integer quantidade;
 	private Double preco;
@@ -25,12 +26,23 @@ public class ItemPedido implements Serializable {
 		
 	}
 
-	public ItemPedido(Produto produto, Pedido pedido, Integer quantidade, Double preco) {
+	public ItemPedido(Pedido pedido, Produto produto, Integer quantidade, Double preco) {
 		super();
-		chavePrimaria.setProduto(produto);
 		chavePrimaria.setPedido(pedido);
+		chavePrimaria.setProduto(produto);
 		this.quantidade = quantidade;
 		this.preco = preco;
+	}
+	
+	@JsonIgnore
+	//o getPedido que chama o pedido associado a este item do pedido
+	//ficando um loop infinito
+	public Pedido getPedido() {
+		return chavePrimaria.getPedido();
+	}
+	
+	public void setPedido(Pedido pedido) {
+		chavePrimaria.setPedido(pedido);
 	}
 	
 	public Produto getProduto() {
@@ -41,14 +53,6 @@ public class ItemPedido implements Serializable {
 	public void setProduto(Produto produto) {
 		System.out.println("setProduto");
 		chavePrimaria.setProduto(produto);
-	}
-	
-	public Pedido getPedido() {
-		return chavePrimaria.getPedido();
-	}
-	
-	public void setPedido(Pedido pedido) {
-		chavePrimaria.setPedido(pedido);
 	}
 
 	public Integer getQuantidade() {

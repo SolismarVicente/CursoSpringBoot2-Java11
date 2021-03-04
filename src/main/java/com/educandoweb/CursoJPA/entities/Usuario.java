@@ -87,7 +87,7 @@ public class Usuario implements Serializable {
 		this.senhaUsuario = senhaUsuario;
 	}
 
-	public List<Pedido> getOrders() {
+	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
 

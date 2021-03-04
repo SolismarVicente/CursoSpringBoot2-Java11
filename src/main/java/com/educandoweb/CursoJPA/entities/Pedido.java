@@ -2,6 +2,8 @@ package com.educandoweb.cursojpa.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.educandoweb.cursojpa.entities.enums.StatusPedido;
@@ -32,9 +35,13 @@ public class Pedido implements Serializable {
 	
 	//Implementação do relacionamento entre pedido(order) e
 	//usuario: (user)
+	//No pedido eu consigo puxar o usuario(cliente) e os itens do pedido
 	@ManyToOne
 	@JoinColumn(name = "tb_usuario_codigo")
 	private Usuario cliente;
+	
+	@OneToMany(mappedBy = "chavePrimaria.pedido")
+	private Set<ItemPedido> itensPedidos = new HashSet<>();
 	
 	public Pedido() {
 		
@@ -80,6 +87,10 @@ public class Pedido implements Serializable {
 
 	public void setCliente(Usuario cliente) {
 		this.cliente = cliente;
+	}
+	
+	public Set<ItemPedido> getItensPedidos() {
+		return itensPedidos;
 	}
 
 	@Override
