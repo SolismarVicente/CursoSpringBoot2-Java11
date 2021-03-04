@@ -14,20 +14,25 @@ public class ServicoUsuario {
 
 	@Autowired
 	private RepositorioUsuario repositorioUsuario;
-	
+
 	public List<Usuario> listarTodos() {
 		return repositorioUsuario.findAll();
 	}
-	
-	//findById: buscarPorCodigo
+
+	// findById: buscarPorCodigo
 	public Usuario buscarPorCodigo(Long codigo) {
 		Optional<Usuario> objetoUsuario = repositorioUsuario.findById(codigo);
 		return objetoUsuario.get();
 	}
-	
-	//realizar insercao no Banco de Dados - tabela tb_usuario
+
+	// realizar insercao no Banco de Dados - tabela tb_usuario
 	public Usuario inserir(Usuario objetoUsuario) {
 		return repositorioUsuario.save(objetoUsuario);
 	}
-	
+
+	// realizar exclusão na tb_usuario passando o codigo como parâmetro
+	public void excluir(Long codigo) {
+		repositorioUsuario.deleteById(codigo);
+	}
+
 }
