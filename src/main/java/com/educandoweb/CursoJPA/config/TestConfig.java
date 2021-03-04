@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.educandoweb.cursojpa.entities.Categoria;
 import com.educandoweb.cursojpa.entities.ItemPedido;
+import com.educandoweb.cursojpa.entities.Pagamento;
 import com.educandoweb.cursojpa.entities.Pedido;
 import com.educandoweb.cursojpa.entities.Produto;
 import com.educandoweb.cursojpa.entities.Usuario;
@@ -95,6 +96,11 @@ public class TestConfig implements CommandLineRunner {
 		ItemPedido itemPed4 = new ItemPedido(ped3, prod5, 2, prod5.getPrecoProduto());
 		//salvar os dados do usuário na tb_item_pedido
 		repositorioItemPedido.saveAll(Arrays.asList(itemPed1, itemPed2, itemPed3, itemPed4));
+		
+		Pagamento pag1 = new Pagamento(null, Instant.parse("2019-06-20T21:53:07Z"), ped1);
+		//Vou associar o ped1 ao pag1
+		ped1.setPagamento(pag1);
+		repositorioPedido.saveAll(Arrays.asList(ped1));
 	}
 
 }
