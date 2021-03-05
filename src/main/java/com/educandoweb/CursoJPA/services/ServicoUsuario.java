@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.educandoweb.cursojpa.entities.Usuario;
 import com.educandoweb.cursojpa.repositories.RepositorioUsuario;
+import com.educandoweb.cursojpa.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class ServicoUsuario {
@@ -22,7 +23,7 @@ public class ServicoUsuario {
 	// findById: buscarPorCodigo
 	public Usuario buscarPorCodigo(Long codigo) {
 		Optional<Usuario> objetoUsuario = repositorioUsuario.findById(codigo);
-		return objetoUsuario.get();
+		return objetoUsuario.orElseThrow(() -> new ResourceNotFoundException(codigo));
 	}
 
 	// realizar insercao no Banco de Dados - tabela tb_usuario
