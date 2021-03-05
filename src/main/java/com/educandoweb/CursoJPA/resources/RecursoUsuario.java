@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,8 +51,13 @@ public class RecursoUsuario {
 	
 	@DeleteMapping(value = "/{codigo}")
 	public ResponseEntity<Void> excluirRegistro(@PathVariable Long codigo) {
-		System.out.println("ResponseEntity");
 		servicoUsuario.excluir(codigo);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@PutMapping(value = "/{codigo}")
+	public ResponseEntity<Usuario> alterarRegistro(@PathVariable Long codigo, @RequestBody Usuario objetoUsuario) {
+		objetoUsuario = servicoUsuario.alterar(codigo, objetoUsuario);
+		return ResponseEntity.ok().body(objetoUsuario);
 	}
 }

@@ -35,4 +35,17 @@ public class ServicoUsuario {
 		repositorioUsuario.deleteById(codigo);
 	}
 
+	// realizar alteração (edição) na tb_usuario passando o codigo como parâmetro
+	public Usuario alterar(Long codigo, Usuario objetoUsuario) {
+		Usuario entidadeUsuario = repositorioUsuario.getOne(codigo);
+		atualizarDadosUsuario(entidadeUsuario, objetoUsuario);
+		return repositorioUsuario.save(entidadeUsuario);
+	}
+
+	private void atualizarDadosUsuario(Usuario entidadeUsuario, Usuario objetoUsuario) {
+		entidadeUsuario.setNomeUsuario(objetoUsuario.getNomeUsuario());
+		entidadeUsuario.setEmailUsuario(objetoUsuario.getEmailUsuario());
+		entidadeUsuario.setTelefoneUsuario(objetoUsuario.getTelefoneUsuario());
+	}
+
 }
