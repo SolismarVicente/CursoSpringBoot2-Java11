@@ -3,6 +3,8 @@ package com.educandoweb.cursojpa.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -10,8 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.educandoweb.cursojpa.entities.Usuario;
 import com.educandoweb.cursojpa.repositories.RepositorioUsuario;
-import com.educandoweb.cursojpa.services.exceptions.ExcecaoIntegridadeReferencial;
-import com.educandoweb.cursojpa.services.exceptions.ExcecaoRegistroNaoEncontrado;
+import com.educandoweb.cursojpa.services.exceptions.DatabaseException;
+import com.educandoweb.cursojpa.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class ServicoUsuario {
@@ -26,7 +28,7 @@ public class ServicoUsuario {
 	// findById: buscarPorCodigo
 	public Usuario buscarPorCodigo(Long codigo) {
 		Optional<Usuario> objetoUsuario = repositorioUsuario.findById(codigo);
-		return objetoUsuario.orElseThrow(() -> new ExcecaoRegistroNaoEncontrado(codigo));
+		return objetoUsuario.orElseThrow(() -> new ResourceNotFoundException(codigo));
 	}
 
 	// realizar insercao no Banco de Dados - tabela tb_usuario
@@ -39,17 +41,22 @@ public class ServicoUsuario {
 		try {
 			repositorioUsuario.deleteById(codigo);
 		} catch (EmptyResultDataAccessException erro) {
-			throw new ExcecaoRegistroNaoEncontrado(codigo);
+			throw new ResourceNotFoundException(codigo);
 		} catch (DataIntegrityViolationException erro) {
-			throw new ExcecaoIntegridadeReferencial(erro.getMessage());
+			//throw new DatabaseException(erro.getMessage());
+			throw new DatabaseException(codigo);
 		}
 	}
 
 	// realizar alteração (edição) na tb_usuario passando o codigo como parâmetro
 	public Usuario alterar(Long codigo, Usuario objetoUsuario) {
-		Usuario entidadeUsuario = repositorioUsuario.getOne(codigo);
-		atualizarDadosUsuario(entidadeUsuario, objetoUsuario);
-		return repositorioUsuario.save(entidadeUsuario);
+		try {
+			Usuario entidadeUsuario = repositorioUsuario.getOne(codigo);
+			atualizarDadosUsuario(entidadeUsuario, objetoUsuario);
+			return repositorioUsuario.save(entidadeUsuario);
+		} catch (EntityNotFoundException erro) {
+			throw new ResourceNotFoundException(codigo);
+		}
 	}
 
 	private void atualizarDadosUsuario(Usuario entidadeUsuario, Usuario objetoUsuario) {

@@ -9,14 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.educandoweb.cursojpa.services.exceptions.ExcecaoIntegridadeReferencial;
-import com.educandoweb.cursojpa.services.exceptions.ExcecaoRegistroNaoEncontrado;
+import com.educandoweb.cursojpa.services.exceptions.DatabaseException;
+import com.educandoweb.cursojpa.services.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
 
-	@ExceptionHandler(ExcecaoRegistroNaoEncontrado.class)
-	public ResponseEntity<StandardError> registroNaoEncontrado(ExcecaoRegistroNaoEncontrado e, HttpServletRequest request) {
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<StandardError> registroNaoEncontrado(ResourceNotFoundException e, HttpServletRequest request) {
 		String error = "Registro não encontrado.";
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
@@ -24,8 +24,8 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(status).body(err);
 	}
 	
-	@ExceptionHandler(ExcecaoIntegridadeReferencial.class)
-	public ResponseEntity<StandardError> integridadeReferencial(ExcecaoIntegridadeReferencial e, HttpServletRequest request) {
+	@ExceptionHandler(DatabaseException.class)
+	public ResponseEntity<StandardError> integridadeReferencial(DatabaseException e, HttpServletRequest request) {
 		String error = "Erro de Banco de Dados (Integridade Referencial).";
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
